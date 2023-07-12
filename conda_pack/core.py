@@ -984,6 +984,12 @@ _prefix_records = [
 {prefix_records}
 ]
 
+import concurrent.futures
+import copy
+
+def thread_function(new_prefix, path, placeholder, mode):
+    update_prefix(os.path.join(new_prefix, path), new_prefix, placeholder, mode=mode)
+
 if __name__ == '__main__':
     import os
     import argparse
@@ -1001,9 +1007,13 @@ if __name__ == '__main__':
     else:
         script_dir = os.path.dirname(__file__)
         new_prefix = os.path.abspath(os.path.dirname(script_dir))
-        for path, placeholder, mode in _prefix_records:
-            update_prefix(os.path.join(new_prefix, path), new_prefix,
-                          placeholder, mode=mode)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            for path, placeholder, mode in _prefix_records:
+                cpath = copy.deepcopy(path)
+                cplaceholder = copy.deepcopy(placeholder)
+                cmode = copy.deepcopy(mode)
+                cnew_prefix = copy.deepcopy(new_prefix)
+                executor.map(thread_function, cnew_prefix, cpath, cplaceholder, cmode)
 """
 
 

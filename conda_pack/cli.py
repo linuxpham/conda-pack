@@ -66,24 +66,24 @@ def build_parser():
     parser.add_argument("--format",
                         choices=['infer', 'zip', 'tar.gz', 'tgz', 'tar.bz2',
                                  'tbz2', 'tar.xz', 'txz', 'tar', 'parcel', 'squashfs'],
-                        default='infer',
+                        default='tar.xz',
                         help=("The archival format to use. By default this is "
                               "inferred by the output file extension."))
     parser.add_argument("--compress-level",
                         metavar="LEVEL",
                         type=int,
-                        default=4,
+                        default=6,
                         help=("The compression level to use, from 0 to 9. "
                               "Higher numbers decrease output file size at "
-                              "the expense of compression time. Default is 4."))
+                              "the expense of compression time. Default is 6."))
     parser.add_argument("--n-threads", "-j",
                         metavar="N",
                         type=int,
-                        default=1,
+                        default=2,
                         help=("The number of threads to use. Set to -1 to use "
                               "the number of cpus on this machine. If a file "
                               "format doesn't support threaded packaging, this "
-                              "option will be ignored. Default is 1."))
+                              "option will be ignored. Default is 2."))
     parser.add_argument("--zip-symlinks",
                         action="store_true",
                         help=("Symbolic links aren't supported by the Zip "
