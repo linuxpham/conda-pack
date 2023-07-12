@@ -68,7 +68,7 @@ def build_parser():
                                  'tbz2', 'tar.xz', 'txz', 'tar', 'parcel', 'squashfs'],
                         default='tar.xz',
                         help=("The archival format to use. By default this is "
-                              "inferred by the output file extension."))
+                              "XZ by the output file extension."))
     parser.add_argument("--compress-level",
                         metavar="LEVEL",
                         type=int,
